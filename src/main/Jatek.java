@@ -76,12 +76,7 @@ public class Jatek
         this.csigak[melyiket].setBonus(true);
     }
 }
-    
-    public String status()
-    {
-        return "";
-    }
-    
+       
     public void csusznak()
     {
         fogadas();
@@ -89,8 +84,6 @@ public class Jatek
         
         
         for (int i = 0; i < korDb; i++) {
-            
-            
             
             csigagyorsito();
             for (int j = 0; j < csigak.length; j++) {
@@ -160,10 +153,12 @@ public class Jatek
             csigaVonal[i] = "║ " + szin + csuszasLista[i] + csigak[i].getCsTest() +"\033[0m" + " ".repeat(kepSzelesseg - csuszasLista[i].length()) + "║";
         }
         
+        String szinLezar = "\033[0m";
+        
         System.out.println("╔════════════════════════════════════╦═════════════════════════╦═══════════╗");
-        System.out.printf("║ %s%-20s 🐌.   \033[0m    ║  %s  ║ KÖR: %02d. ║\n", csigak[0].getSzinKod(), csigak[0].getCsNev() + " csiga", csigak[0].isBonus() ? "\033[33mBONUS (2× speed) \033[0m" : " ".repeat(18), kor);
-        System.out.printf("║ %s%-20s 🐌.     \033[0m  ║  %s  ╚════════════╣\n", csigak[1].getSzinKod(), csigak[1].getCsNev() + " csiga", csigak[1].isBonus() ? "\033[33mBONUS (2× speed) \033[0m" : " ".repeat(18));
-        System.out.printf("║ %s%-20s 🐌.     \033[0m  ║  %s             ║\n", csigak[2].getSzinKod(), csigak[2].getCsNev() + " csiga", csigak[2].isBonus() ? "\033[33mBONUS (2× speed) \033[0m" : " ".repeat(18));
+        System.out.printf("║ %s%-20s 🐌.   "+ szinLezar +"    ║  %s  ║ KÖR: %02d. ║\n", csigak[0].getSzinKod(), csigak[0].getCsNev() + " csiga", csigak[0].isBonus() ? "\033[33mBONUS (2× speed) " + szinLezar : " ".repeat(18), kor);
+        System.out.printf("║ %s%-20s 🐌.     "+ szinLezar +"  ║  %s  ╚════════════╣\n", csigak[1].getSzinKod(), csigak[1].getCsNev() + " csiga", csigak[1].isBonus() ? "\033[33mBONUS (2× speed) " + szinLezar : " ".repeat(18));
+        System.out.printf("║ %s%-20s 🐌.     "+ szinLezar +"  ║  %s             ║\n", csigak[2].getSzinKod(), csigak[2].getCsNev() + " csiga", csigak[2].isBonus() ? "\033[33mBONUS (2× speed) " + szinLezar : " ".repeat(18));
         System.out.println("╠════════════════════════════════════╩═════════════════════════════════════╣");
         System.out.printf("║ %-64s ║\n", "[" + csigak[0].getCsNev() + "]");
         System.out.println(csigaVonal[0]);
@@ -172,7 +167,7 @@ public class Jatek
         System.out.printf("║ %-64s ║\n", "[" + csigak[2].getCsNev() + "]");
         System.out.println(csigaVonal[2]);
         System.out.println("║                                             ╔═══════════════════════╣");
-        System.out.printf("║                                             ║ FOGADÁS: %s%-8s \033[0m ║\n", csigak[fogadId].getSzinKod(), "[" + csigak[fogadId].getCsNev() + "]");
+        System.out.printf("║                                             ║ FOGADÁS: %s%-8s "+ szinLezar +" ║\n", csigak[fogadId].getSzinKod(), "[" + csigak[fogadId].getCsNev() + "]");
         System.out.println("╚═══════════════════════════════════════════════════╩══════════════════════╝");
         System.out.println();
     
