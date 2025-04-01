@@ -8,14 +8,16 @@ public class Csiga
     String szin;
     String szinKod;
     String csTest;
+    String csNev;
 
-    public Csiga(String szin, String szinKod)
+    public Csiga(String szin, String szinKod, String csNev)
     {
         this.csuszas = 0;
         this.bonus = false;
         this.szin = szin;
         this.szinKod = szinKod;
         this.csTest = "Ov";
+        this.csNev = csNev;
     }
     
     public void csuszasHozzaad(int csusz)
@@ -28,6 +30,7 @@ public class Csiga
     public String getSzin(){return szin;}
     public String getSzinKod(){return szinKod;}
     public String getCsTest(){return csTest;}
+    public String getNev() {return csNev;}
     
     public void setCsuszas(int csuszas){this.csuszas = csuszas;}
     public void setBonus(boolean bonus){this.bonus = bonus;}
