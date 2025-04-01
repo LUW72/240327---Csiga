@@ -7,27 +7,22 @@ import java.util.Scanner;
 
 public class Jatek 
 {
-<<<<<<< HEAD
     private final static Random RND = new Random();
     private final static Scanner SC = new Scanner(System.in);
-=======
-    public final static Random RND = new Random();
-    public final static Scanner SC = new Scanner(System.in);
->>>>>>> 2f29849ccd93140f2255691f98393f14d73ca83a
     
     int korDb;
     int kor;
     int fogadId;
     final int MAXKORSZAM = 5;
     Csiga csigak[];
-    String csuszasLista[] = {"--===", "--", "-======="};
+    String csuszasLista[];
 
     public Jatek(int korDb)
     {
         setKordDb(korDb);
         this.fogadId = 0;
         this.csigak = new Csiga[3];
-        this.csuszasLista = new String[] {"", "", ""};
+        this.csuszasLista = new String[] {"--===", "---", "-======="};
         this.csigaSzulet();
         
     }
@@ -46,18 +41,17 @@ public class Jatek
     
     public void csigaSzulet()
     {
-        Csiga piros = new Csiga("piros", "\u001B[31m","Gáspár");
+        Csiga piros = new Csiga("piros", "\033[31m", "Gáspár");
         this.csigak[0] = piros;
-        Csiga kek = new Csiga("kék", "\u001B[34m", "Bingus");
-        this.csigak[1] = piros;
-        Csiga zold = new Csiga("zöld", "\u001B[32m", "Ernő");
+        Csiga kek = new Csiga("kék", "\033[34m", "Bingus");
+        this.csigak[1] = kek;
+        Csiga zold = new Csiga("zöld", "\033[32m", "Ernő");
         this.csigak[2] = zold;
+        
+        
     }
     
-    public void fogadas()
-<<<<<<< HEAD
-    {                
-=======
+    public void fogadas()               
     {
         int valasztas;
         do
@@ -72,7 +66,6 @@ public class Jatek
         while (!(valasztas == 1 || valasztas == 2 || valasztas == 3));
         
         this.fogadId = valasztas;
->>>>>>> 2f29849ccd93140f2255691f98393f14d73ca83a
     }
     
     
@@ -146,44 +139,37 @@ public class Jatek
     
     public void kepernyo() 
     {
-<<<<<<< HEAD
 
-=======
-        String alapUt = "║                                                                    ║";
-        String csiga1 = "\033[34m" + csuszasLista[0]; // Blue
-        String csiga2 = "\033[31m" + csuszasLista[1]; // Red
-        String csiga3 = "\033[32m" + csuszasLista[2]; // Green
+        String alapUt = "║                                                               ║";
+        int kepSzelesseg = alapUt.length() - 2;
 
-        int szelesseg = alapUt.length() - 2;
-        String vonal1 = "║ " + csiga1 + "Ov\033[0m" + " ".repeat(szelesseg - csiga1.length()) + "║";
-        String vonal2 = "║ " + csiga2 + "Ov\033[0m" + " ".repeat(szelesseg - csiga2.length()) + "║";
-        String vonal3 = "║ " + csiga3 + "Ov\033[0m" + " ".repeat(szelesseg - csiga3.length()) + "║";
-
-        String alapnev = "║ [B]                                                              ║";
+        String[] csigaVonal = new String[3];
         
-        
-        String csigaNevKiir1 = "║ " + csiga1 + "Ov\033[0m" + " ".repeat(szelesseg - csiga1.length()) + "║";
-        String csigaNevKiir2 = "║ " + csiga2 + "Ov\033[0m" + " ".repeat(szelesseg - csiga2.length()) + "║";
-        String csigaNevKiir3 = "║ " + csiga3 + "Ov\033[0m" + " ".repeat(szelesseg - csiga3.length()) + "║";
-        
+        for (int i = 0; i < csigak.length; i++) 
+        {
+            String szin = csigak[i].getSzinKod();
+            csigaVonal[i] = "║ " + szin + csuszasLista[i] + csigak[i].getCsTest() +"\033[0m" + " ".repeat(kepSzelesseg - csuszasLista[i].length()) + "║";
+        }
+       
+        csigak[0].bonus = true;
+        fogadId = 0;
         
         System.out.println("╔════════════════════════════════════╦═════════════════════════╦═══════════╗");
-        System.out.println("║ [B] csiga          02 lépés    ║  [BONUS (2× speed)]  ║ KÖR: 01. ║");
-        System.out.println("║ [R] csiga          03 lépés    ║  .                   ╚═══════════╣");
-        System.out.println("║ [G] csiga          01 lépés    ║  .                              ║");
+        System.out.printf("║ %s%-20s 🐌.   \033[0m    ║  %s  ║ KÖR: %02d. ║\n", csigak[0].getSzinKod(), csigak[0].getCsNev() + " csiga", csigak[0].isBonus() ? "BONUS (2× speed)  " : " ".repeat(18), kor);
+        System.out.printf("║ %s%-20s 🐌.     \033[0m  ║  %s  ╚════════════╣\n", csigak[1].getSzinKod(), csigak[1].getCsNev() + " csiga", csigak[1].isBonus() ? "BONUS (2× speed)  " : " ".repeat(18));
+        System.out.printf("║ %s%-20s 🐌.     \033[0m  ║  %s             ║\n", csigak[2].getSzinKod(), csigak[2].getCsNev() + " csiga", csigak[2].isBonus() ? "BONUS (2× speed)  " : " ".repeat(18));
         System.out.println("╠════════════════════════════════════╩═════════════════════════════════════╣");
-        System.out.printf("║ %-64s ║\n", "[Tesztnév]");
-        System.out.println(vonal1);
-        System.out.println("║ [R]                                                              ║");
-        System.out.println(vonal2);
-        System.out.println("║ [G]                                                              ║");
-        System.out.println(vonal3);
-        System.out.println("║                                             ╔══════════════════════╣");
-        System.out.println("║                                             ║ FOGADÁS: [KÉK]     ║");
+        System.out.printf("║ %-64s ║\n", "[" + csigak[0].getCsNev() + "]");
+        System.out.println(csigaVonal[0]);
+        System.out.printf("║ %-64s ║\n", "[" + csigak[1].getCsNev() + "]");
+        System.out.println(csigaVonal[1]);
+        System.out.printf("║ %-64s ║\n", "[" + csigak[2].getCsNev() + "]");
+        System.out.println(csigaVonal[2]);
+        System.out.println("║                                             ╔═══════════════════════╣");
+        System.out.printf("║                                             ║ FOGADÁS: %s%-8s \033[0m ║\n", csigak[fogadId].getSzinKod(), "[" + csigak[fogadId].getCsNev() + "]");
         System.out.println("╚═══════════════════════════════════════════════════╩══════════════════════╝");
         System.out.println();
     
->>>>>>> 2f29849ccd93140f2255691f98393f14d73ca83a
     }
 
     
