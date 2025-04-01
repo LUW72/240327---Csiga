@@ -1,30 +1,25 @@
 package main;
 
-import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
 
 public class Jatek 
 {
-<<<<<<< HEAD
     private final static Random RND = new Random();
     private final static Scanner SC = new Scanner(System.in);
-=======
-    public final static Random RND = new Random();
-    public final static Scanner SC = new Scanner(System.in);
->>>>>>> 2f29849ccd93140f2255691f98393f14d73ca83a
+
+
     
     int korDb;
-    int kor;
     int fogadId;
     final int MAXKORSZAM = 5;
     Csiga csigak[];
-    String csuszasLista[] = {"--===", "--", "-======="};
+    String csuszasLista[];
 
     public Jatek(int korDb)
     {
-        setKordDb(korDb);
+        setKorDb(korDb);
         this.fogadId = 0;
         this.csigak = new Csiga[3];
         this.csuszasLista = new String[] {"", "", ""};
@@ -32,7 +27,7 @@ public class Jatek
         
     }
     
-    private void setKordDb(int kor)
+    private void setKorDb(int kor)
     {
         if(kor > MAXKORSZAM || kor <= 0)
         {
@@ -46,18 +41,12 @@ public class Jatek
     
     public void csigaSzulet()
     {
-        Csiga piros = new Csiga("piros", "\u001B[31m","Gáspár");
-        this.csigak[0] = piros;
-        Csiga kek = new Csiga("kék", "\u001B[34m", "Bingus");
-        this.csigak[1] = piros;
-        Csiga zold = new Csiga("zöld", "\u001B[32m", "Ernő");
-        this.csigak[2] = zold;
+        this.csigak[0] = new Csiga("piros", "\u001B[31m","Gáspár");
+        this.csigak[1] = new Csiga("kék", "\u001B[34m", "Bingus");
+        this.csigak[2] = new Csiga("zöld", "\u001B[32m", "Ernő");
     }
     
     public void fogadas()
-<<<<<<< HEAD
-    {                
-=======
     {
         int valasztas;
         do
@@ -71,21 +60,20 @@ public class Jatek
         }
         while (!(valasztas == 1 || valasztas == 2 || valasztas == 3));
         
-        this.fogadId = valasztas;
->>>>>>> 2f29849ccd93140f2255691f98393f14d73ca83a
+        this.fogadId = valasztas-1;
+
     }
     
     
-    public void csigagyorsito()
-    {
-        int gyorsitsunk = RND.nextInt(0,9);
-        if(gyorsitsunk == 0 || gyorsitsunk == 1){
-            int melyiket = RND.nextInt(0,3);
-            
-            this.csigak[melyiket].setBonus(true);
-            System.out.println(csigak[melyiket].getSzin());
-        }
+
+    
+    public void csigagyorsito() {
+    if (RND.nextInt(5) == 0) { 
+        int melyiket = RND.nextInt(3);
+        this.csigak[melyiket].setBonus(true);
+        System.out.println(csigak[melyiket].getSzin());
     }
+}
     
     public String status()
     {
@@ -94,12 +82,17 @@ public class Jatek
     
     public void csusznak()
     {
-        //fogadas();
+        fogadas();
+        for (int j = 0; j < csuszasLista.length; j++) {
+                System.out.println(csuszasLista[j] + "oV");
+            }
+        
+            System.out.println("Press enter to continue: ");
+            SC.nextLine();
         for (int i = 0; i < korDb; i++) {
             csigagyorsito();
             for (int j = 0; j < csigak.length; j++) {
                 int mennyit = RND.nextInt(0,4);
-                csigak[j].setCsuszas(mennyit);
                 if(mennyit == 0 && csigak[j].isBonus()){
                     csuszasLista[j] += "=";
                 }
@@ -113,42 +106,38 @@ public class Jatek
                     
                 }
                 this.csigak[j].setBonus(false);
+                
             }
             for (int j = 0; j < csuszasLista.length; j++) {
-                System.out.println(csuszasLista[j] + "oV");
+                System.out.println(csuszasLista[j] + "Ov");
             }
             System.out.println("Press enter to continue: ");
             SC.nextLine();
             
-            //System.out.println(Arrays.toString(csuszasLista));
             
         }
         
-        fogadCheck();
-        
     }
     
-    public void fogadCheck(){
+    
+    public boolean fogadCheck(){
         int nyertes = 0;
         for (int i = 0; i < csuszasLista.length; i++) {
             if(csuszasLista[i].length()> csuszasLista[nyertes].length()){
                 nyertes = i;
             }
         }
-        System.out.println(nyertes);
         
         if(fogadId == nyertes){
-            System.out.println("big win!!!");
+            return true;
         }else{
-            System.out.println("much sad");
+            return false;
         }
     }
     
     public void kepernyo() 
     {
-<<<<<<< HEAD
 
-=======
         String alapUt = "║                                                                    ║";
         String csiga1 = "\033[34m" + csuszasLista[0]; // Blue
         String csiga2 = "\033[31m" + csuszasLista[1]; // Red
@@ -183,7 +172,7 @@ public class Jatek
         System.out.println("╚═══════════════════════════════════════════════════╩══════════════════════╝");
         System.out.println();
     
->>>>>>> 2f29849ccd93140f2255691f98393f14d73ca83a
+
     }
 
     
