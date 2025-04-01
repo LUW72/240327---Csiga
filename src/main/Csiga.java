@@ -9,7 +9,10 @@ public class Csiga
     String szinKod;
     String csTest;
     String csNev;
+<<<<<<< HEAD
        
+=======
+>>>>>>> 2f29849ccd93140f2255691f98393f14d73ca83a
 
     public Csiga(String szin, String szinKod, String csNev)
     {
@@ -31,7 +34,11 @@ public class Csiga
     public String getSzin(){return szin;}
     public String getSzinKod(){return szinKod;}
     public String getCsTest(){return csTest;}
+<<<<<<< HEAD
     public String getCsNev(){return csNev;}
+=======
+    public String getNev() {return csNev;}
+>>>>>>> 2f29849ccd93140f2255691f98393f14d73ca83a
     
     public void setCsuszas(int csuszas){this.csuszas = csuszas;}
     public void setBonus(boolean bonus){this.bonus = bonus;}
