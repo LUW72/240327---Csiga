@@ -10,12 +10,12 @@ public class Jatek
     private final static Scanner SC = new Scanner(System.in);
 
 
-    
     int korDb;
     int fogadId;
     final int MAXKORSZAM = 5;
     Csiga csigak[];
     String csuszasLista[];
+    int kor;
 
     public Jatek(int korDb)
     {
@@ -41,25 +41,28 @@ public class Jatek
     
     public void csigaSzulet()
     {
+
         this.csigak[0] = new Csiga("piros", "\u001B[31m","Gáspár");
         this.csigak[1] = new Csiga("kék", "\u001B[34m", "Bingus");
         this.csigak[2] = new Csiga("zöld", "\u001B[32m", "Ernő");
     }
     
-    public void fogadas()
+    
+    public void fogadas()               
     {
         int valasztas;
         do
         {            
             System.out.printf("Üdvözöllek a Csigaverseny fergeteges játékában\n"
                               + "Kérlek tedd meg tétjeidet!\n"
-                              + "\t1) Kék csiga\n"
-                              + "\t2) Piros csiga\n"
-                              + "\t3) Zöld csiga\n>");
+                              + "\t1) " + csigak[0].getSzin() + " csiga - " + csigak[0].getCsNev() + "\n"
+                              + "\t2) " + csigak[1].getSzin() + " csiga - " + csigak[1].getCsNev() + "\n"
+                              + "\t3) " + csigak[2].getSzin() + " csiga - " + csigak[2].getCsNev() + "\n>");
             valasztas = SC.nextInt();
         }
         while (!(valasztas == 1 || valasztas == 2 || valasztas == 3));
         
+
         this.fogadId = valasztas-1;
 
     }
@@ -71,7 +74,6 @@ public class Jatek
     if (RND.nextInt(5) == 0) { 
         int melyiket = RND.nextInt(3);
         this.csigak[melyiket].setBonus(true);
-        System.out.println(csigak[melyiket].getSzin());
     }
 }
     
@@ -83,13 +85,13 @@ public class Jatek
     public void csusznak()
     {
         fogadas();
-        for (int j = 0; j < csuszasLista.length; j++) {
-                System.out.println(csuszasLista[j] + "oV");
-            }
+        SC.nextLine();
         
-            System.out.println("Press enter to continue: ");
-            SC.nextLine();
+        
         for (int i = 0; i < korDb; i++) {
+            
+            
+            
             csigagyorsito();
             for (int j = 0; j < csigak.length; j++) {
                 int mennyit = RND.nextInt(0,4);
@@ -101,22 +103,31 @@ public class Jatek
                     if(csigak[j].isBonus()){
                         csuszasLista[j] += "==";
                     }else{
-                        csuszasLista[j] += "_";
+                        csuszasLista[j] += "-";
                     }
                     
                 }
-                this.csigak[j].setBonus(false);
+                
                 
             }
-            for (int j = 0; j < csuszasLista.length; j++) {
-                System.out.println(csuszasLista[j] + "Ov");
+            this.kor +=1;
+            kepernyo();
+                    
+            for (int j = 0; j < csigak.length; j++) {
+                this.csigak[j].setBonus(false);
             }
-            System.out.println("Press enter to continue: ");
+            
+
+            
+            System.out.printf("Press enter to continue: \n");
             SC.nextLine();
             
-            
         }
-        
+        if(fogadCheck()){
+            System.out.printf(csigak[fogadId].getSzinKod() + "A te csigád (%s) nyert!!!\033[0m\n", csigak[fogadId].getCsNev());
+        }else{
+            System.out.println("Veszített a csigád :((((");
+        }
     }
     
     
@@ -135,44 +146,36 @@ public class Jatek
         }
     }
     
-    public void kepernyo() 
+ public void kepernyo() 
     {
 
-        String alapUt = "║                                                                    ║";
-        String csiga1 = "\033[34m" + csuszasLista[0]; // Blue
-        String csiga2 = "\033[31m" + csuszasLista[1]; // Red
-        String csiga3 = "\033[32m" + csuszasLista[2]; // Green
+        String alapUt = "║                                                               ║";
+        int kepSzelesseg = alapUt.length() - 2;
 
-        int szelesseg = alapUt.length() - 2;
-        String vonal1 = "║ " + csiga1 + "Ov\033[0m" + " ".repeat(szelesseg - csiga1.length()) + "║";
-        String vonal2 = "║ " + csiga2 + "Ov\033[0m" + " ".repeat(szelesseg - csiga2.length()) + "║";
-        String vonal3 = "║ " + csiga3 + "Ov\033[0m" + " ".repeat(szelesseg - csiga3.length()) + "║";
-
-        String alapnev = "║ [B]                                                              ║";
+        String[] csigaVonal = new String[3];
         
-        
-        String csigaNevKiir1 = "║ " + csiga1 + "Ov\033[0m" + " ".repeat(szelesseg - csiga1.length()) + "║";
-        String csigaNevKiir2 = "║ " + csiga2 + "Ov\033[0m" + " ".repeat(szelesseg - csiga2.length()) + "║";
-        String csigaNevKiir3 = "║ " + csiga3 + "Ov\033[0m" + " ".repeat(szelesseg - csiga3.length()) + "║";
-        
+        for (int i = 0; i < csigak.length; i++) 
+        {
+            String szin = csigak[i].getSzinKod();
+            csigaVonal[i] = "║ " + szin + csuszasLista[i] + csigak[i].getCsTest() +"\033[0m" + " ".repeat(kepSzelesseg - csuszasLista[i].length()) + "║";
+        }
         
         System.out.println("╔════════════════════════════════════╦═════════════════════════╦═══════════╗");
-        System.out.println("║ [B] csiga          02 lépés    ║  [BONUS (2× speed)]  ║ KÖR: 01. ║");
-        System.out.println("║ [R] csiga          03 lépés    ║  .                   ╚═══════════╣");
-        System.out.println("║ [G] csiga          01 lépés    ║  .                              ║");
+        System.out.printf("║ %s%-20s 🐌.   \033[0m    ║  %s  ║ KÖR: %02d. ║\n", csigak[0].getSzinKod(), csigak[0].getCsNev() + " csiga", csigak[0].isBonus() ? "\033[33mBONUS (2× speed) \033[0m" : " ".repeat(18), kor);
+        System.out.printf("║ %s%-20s 🐌.     \033[0m  ║  %s  ╚════════════╣\n", csigak[1].getSzinKod(), csigak[1].getCsNev() + " csiga", csigak[1].isBonus() ? "\033[33mBONUS (2× speed) \033[0m" : " ".repeat(18));
+        System.out.printf("║ %s%-20s 🐌.     \033[0m  ║  %s             ║\n", csigak[2].getSzinKod(), csigak[2].getCsNev() + " csiga", csigak[2].isBonus() ? "\033[33mBONUS (2× speed) \033[0m" : " ".repeat(18));
         System.out.println("╠════════════════════════════════════╩═════════════════════════════════════╣");
-        System.out.printf("║ %-64s ║\n", "[Tesztnév]");
-        System.out.println(vonal1);
-        System.out.println("║ [R]                                                              ║");
-        System.out.println(vonal2);
-        System.out.println("║ [G]                                                              ║");
-        System.out.println(vonal3);
-        System.out.println("║                                             ╔══════════════════════╣");
-        System.out.println("║                                             ║ FOGADÁS: [KÉK]     ║");
+        System.out.printf("║ %-64s ║\n", "[" + csigak[0].getCsNev() + "]");
+        System.out.println(csigaVonal[0]);
+        System.out.printf("║ %-64s ║\n", "[" + csigak[1].getCsNev() + "]");
+        System.out.println(csigaVonal[1]);
+        System.out.printf("║ %-64s ║\n", "[" + csigak[2].getCsNev() + "]");
+        System.out.println(csigaVonal[2]);
+        System.out.println("║                                             ╔═══════════════════════╣");
+        System.out.printf("║                                             ║ FOGADÁS: %s%-8s \033[0m ║\n", csigak[fogadId].getSzinKod(), "[" + csigak[fogadId].getCsNev() + "]");
         System.out.println("╚═══════════════════════════════════════════════════╩══════════════════════╝");
         System.out.println();
     
-
     }
 
     
